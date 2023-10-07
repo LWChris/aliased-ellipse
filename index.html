@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aliased Ellipse</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" media="all" href="style.css">
+</head>
+<body>
+    <main>
+        <div id="canvas-o-container" class="canvas-container">
+            <canvas id="canvas-o" width="50" height="50"></canvas>
+        </div>
+        <div id="canvas-s-container" class="canvas-container">
+            <canvas id="canvas-s" width="500" height="500"></canvas>
+            <canvas id="h-grid" width="500" height="500"></canvas>
+            <canvas id="v-grid" width="500" height="500"></canvas>
+        </div>
+        <div id="settings" class="rectangle">
+            <div id="setting-shape">
+                <label for="shape">Shape</label>
+                <select id="shape">
+                    <option value="rectangle" selected>Rounded Rectangle</option>
+                    <option value="ellipse">Ellipse</option>
+                    <option value="circle">Circle</option>
+                </select>
+            </div>
+            <div id="setting-y">
+                <label for="y">Top</label>
+                <div class="adjust dec" id="dec-y"><div></div></div>
+                <input type="range" id="y" min="0" max="50" value="8">
+                <div class="adjust inc" id="inc-y"><div></div></div>
+                <span id="value-y">0</span>
+            </div>
+            <div id="setting-x">
+                <label for="x">Left</label>
+                <div class="adjust dec" id="dec-x"><div></div></div>
+                <input type="range" id="x" min="0" max="50" value="5">
+                <div class="adjust inc" id="inc-x"><div></div></div>
+                <span id="value-x">0</span>
+            </div>
+            <div id="setting-width">
+                <label for="width">Width</label>
+                <div class="adjust dec" id="dec-width"><div></div></div>
+                <input type="range" id="width" min="0" max="50" value="40">
+                <div class="adjust inc" id="inc-width"><div></div></div>
+                <span id="value-width">40</span>
+            </div>
+            <div id="setting-height">
+                <label for="height">Height</label>
+                <div class="adjust dec" id="dec-height"><div></div></div>
+                <input type="range" id="height" min="0" max="50" value="34">
+                <div class="adjust inc" id="inc-height"><div></div></div>
+                <span id="value-height">34</span>
+            </div>
+            <div id="setting-radius">
+                <label for="radius">Radius</label>
+                <div class="adjust dec" id="dec-radius"><div></div></div>
+                <input type="range" id="radius" min="0" max="25" value="14" disabled="true">
+                <div class="adjust inc" id="inc-radius"><div></div></div>
+                <span id="value-radius">14</span>
+            </div>
+            <div id="setting-thickness">
+                <label for="thickness">Thickness</label>
+                <div class="adjust dec" id="dec-thickness"><div></div></div>
+                <input type="range" id="thickness" min="0" max="10" value="1">
+                <div class="adjust inc" id="inc-thickness"><div></div></div>
+                <span id="value-thickness">1</span>
+            </div>
+        </div>
+    </main>
+    <script type="text/javascript" src="script.js"></script>
+</body>
+</html>
