@@ -7,9 +7,9 @@
 
     var settings, sCanvas, oCanvas,
       settingShape,
-      settingX, settingY,
-      settingWidth, settingHeight,
-      settingRadius, settingThickness,
+      sliderX, sliderY,
+      sliderWidth, sliderHeight,
+      sliderRadius, sliderThickness,
       valueX, valueY,
       valueWidth, valueHeight,
       valueRadius, valueThickness;
@@ -20,55 +20,38 @@
         sCanvas = document.getElementById("canvas-s");
         oCanvas = document.getElementById("canvas-o");
         settingShape = document.getElementById("shape");
-        settingY = document.getElementById("y");
-        settingX = document.getElementById("x");
-        settingWidth = document.getElementById("width");
-        settingHeight = document.getElementById("height");
-        settingRadius = document.getElementById("radius");
-        settingThickness = document.getElementById("thickness");
-        valueX = document.getElementById("value-x");
-        valueY = document.getElementById("value-y");
-        valueWidth = document.getElementById("value-width");
-        valueHeight = document.getElementById("value-height");
-        valueRadius = document.getElementById("value-radius");
-        valueThickness = document.getElementById("value-thickness");
-
-        document.getElementById("inc-y").addEventListener("click", () => inc(settingY));
-        document.getElementById("inc-x").addEventListener("click", () => inc(settingX));
-        document.getElementById("inc-width").addEventListener("click", () => inc(settingWidth));
-        document.getElementById("inc-height").addEventListener("click", () => inc(settingHeight));
-        document.getElementById("inc-radius").addEventListener("click", () => inc(settingRadius));
-        document.getElementById("inc-thickness").addEventListener("click", () => inc(settingThickness));
-
-        document.getElementById("dec-y").addEventListener("click", () => dec(settingY));
-        document.getElementById("dec-x").addEventListener("click", () => dec(settingX));
-        document.getElementById("dec-width").addEventListener("click", () => dec(settingWidth));
-        document.getElementById("dec-height").addEventListener("click", () => dec(settingHeight));
-        document.getElementById("dec-radius").addEventListener("click", () => dec(settingRadius));
-        document.getElementById("dec-thickness").addEventListener("click", () => dec(settingThickness));
+        [sliderY, valueY] = setupSlider("y");
+        [sliderX, valueX] = setupSlider("x");
+        [sliderWidth, valueWidth] = setupSlider("width");
+        [sliderHeight, valueHeight] = setupSlider("height");
+        [sliderRadius, valueRadius] = setupSlider("radius");
+        [sliderThickness, valueThickness] = setupSlider("thickness");
 
         drawGrid();
 
         settingShape.addEventListener("change", onShapeChanged);
         onShapeChanged();
 
-        settingY.addEventListener("input", onInputChanged);
-        settingX.addEventListener("input", onInputChanged);
-        settingWidth.addEventListener("input", onInputChanged);
-        settingHeight.addEventListener("input", onInputChanged);
-        settingRadius.addEventListener("input", onInputChanged);
-        settingThickness.addEventListener("input", onInputChanged);
+        // onInputChanged for sliders is initialized in setupSlider
         onInputChanged();
 
         settingShape.addEventListener("change", onValueChanged);
-        settingY.addEventListener("input", onValueChanged);
-        settingX.addEventListener("input", onValueChanged);
-        settingWidth.addEventListener("input", onValueChanged);
-        settingHeight.addEventListener("input", onValueChanged);
-        settingRadius.addEventListener("input", onValueChanged);
-        settingThickness.addEventListener("input", onValueChanged);
+        // onValueChanged for sliders is initialized in setupSlider
         onValueChanged();
     };
+
+    const setupSlider = function(id) {
+        const slider = document.getElementById(id);
+        const value = document.getElementById("value-" + id);
+        const incButton = document.getElementById("inc-" + id);
+        const decButton = document.getElementById("dec-" + id);
+
+        incButton.addEventListener("click", () => inc(slider));
+        decButton.addEventListener("click", () => dec(slider));
+        slider.addEventListener("input", onInputChanged);
+        slider.addEventListener("input", onValueChanged);
+        return [ slider, value ];
+    }
 
     // Event handler when any increment button is clicked
     // input is the slider to increment
@@ -105,20 +88,20 @@
         const shape = settingShape.value;
         settings.className = shape;
 
-        settingRadius.disabled = shape !== "rectangle";
-        settingHeight.disabled = shape === "circle";
+        sliderRadius.disabled = shape !== "rectangle";
+        sliderHeight.disabled = shape === "circle";
     }
 
     // Event handler when any slider is changed
     // Only responsible for updating the displayed value
     // For drawing, see onValueChanged
     const onInputChanged = function() {
-        valueY.innerHTML = settingY.value;
-        valueX.innerHTML = settingX.value;
-        valueWidth.innerHTML = settingWidth.value;
-        valueHeight.innerHTML = settingHeight.value;
-        valueRadius.innerHTML = settingRadius.value;
-        valueThickness.innerHTML = settingThickness.value;
+        valueY.innerHTML = sliderY.value;
+        valueX.innerHTML = sliderX.value;
+        valueWidth.innerHTML = sliderWidth.value;
+        valueHeight.innerHTML = sliderHeight.value;
+        valueRadius.innerHTML = sliderRadius.value;
+        valueThickness.innerHTML = sliderThickness.value;
     }
 
     // Event handler when shape or any slider is changed
@@ -126,12 +109,12 @@
     // For updating the available settings, see onShapeChanged
     // For updating the displayed value, see onInputChanged
     const onValueChanged = function() {
-        const inY = parseInt(settingY.value);
-        const inX = parseInt(settingX.value);
-        const inW = parseInt(settingWidth.value);
-        const inH = parseInt(settingHeight.value);
-        const inR = parseInt(settingRadius.value);
-        const inT = parseInt(settingThickness.value);
+        const inY = parseInt(sliderY.value);
+        const inX = parseInt(sliderX.value);
+        const inW = parseInt(sliderWidth.value);
+        const inH = parseInt(sliderHeight.value);
+        const inR = parseInt(sliderRadius.value);
+        const inT = parseInt(sliderThickness.value);
         const shape = settingShape.value;
 
         switch (shape) {
